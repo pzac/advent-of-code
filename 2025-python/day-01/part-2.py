@@ -21,14 +21,13 @@ for row in rows:
     curr_mod = curr % 100
     prev_mod = prev % 100
 
+    if abs(curr - prev) > 100:
+        num_zeros += abs(curr - prev) // 100
+
     if dir == "R":
-        if abs(curr - prev) > 100:
-            num_zeros += abs(curr - prev) // 100
         if (prev_mod > curr_mod and prev_mod != 0) or (curr_mod == 0):
             num_zeros += 1
     else:
-        if abs(curr - prev) > 100:
-            num_zeros += abs(curr - prev) // 100
         if (prev_mod < curr_mod and prev_mod != 0) or (curr_mod == 0):
             num_zeros += 1
 

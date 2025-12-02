@@ -30,11 +30,7 @@ def valid_number(number):
     return True
 
 
-all = all_numbers()
+sum = sum([num for num in all_numbers() if not valid_number(num)])
 
-sum = 0
-for num in all:
-    if not valid_number(num):
-        sum += num
 
 print("Sum:", sum)

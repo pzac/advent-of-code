@@ -1,36 +1,24 @@
 import sys
 
 
-def get_ranges():
-    row = sys.stdin.readlines()[0].strip()
-    ranges = row.split(",")
-    return ranges
+def get_rows():
+    return sys.stdin.readlines()
 
 
-def expand_range(string):
-    tokens = list(map(int, string.split("-")))
-    numbers = list(range(tokens[0], tokens[1] + 1))
-    return numbers
+def joltage(row):
+    tokens = list(map(int, row.strip()))
+    length = len(tokens)
+    stack = []
+    while len(stack) < 12:
+        missing = 12 - len(stack)
+        item = max(tokens[0 : len(tokens) - missing + 1])
+        stack.append(item)
+        tokens = tokens[tokens.index(item) + 1 :]
+
+    return int("".join(map(str, stack)))
 
 
-def all_numbers():
-    all = []
-    for range in get_ranges():
-        all = all + expand_range(range)
-    return all
-
-
-def valid_number(number):
-    st = str(number)
-    size = len(st)
-    for chunk_size in range(1, size):
-        chunks = [st[i : i + chunk_size] for i in range(0, size, chunk_size)]
-        if len(set(chunks)) == 1:
-            return False
-    return True
-
-
-sum = sum([num for num in all_numbers() if not valid_number(num)])
-
-
+sum = sum([joltage(row) for row in get_rows()])
 print("Sum:", sum)
+
+# Result: 168575096286051
